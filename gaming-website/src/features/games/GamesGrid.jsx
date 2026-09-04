@@ -7,7 +7,7 @@ const GamesGrid = ({ games, favorites, onToggleFavorite }) => {
         <GameCard
           key={game.id}
           {...game}
-          priority={index < 5}
+          sequence={index}
           isFavorite={favorites.has(game.id)}
           onToggleFavorite={onToggleFavorite}
         />

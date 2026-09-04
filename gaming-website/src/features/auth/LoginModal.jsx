@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Modal from "../../components/common/Modal";
 import Button from "../../components/common/Button";
-import api from "../../services/api";
-import { ENDPOINTS } from "../../services/endpoints";
+import { loginLocalAccount } from "../../services/localAuth";
 import { useAuth } from "../../context/useAuth";
 
 const LoginModal = ({ open, onClose }) => {
@@ -16,13 +15,11 @@ const LoginModal = ({ open, onClose }) => {
     setLoading(true);
     setError("");
     try {
-      const response = await api.post(ENDPOINTS.LOGIN, credentials);
-      localStorage.setItem("access", response.data.access);
-      localStorage.setItem("refresh", response.data.refresh);
-      login({ authenticated: true, username: credentials.username });
+      const session = await loginLocalAccount(credentials);
+      login(session);
       onClose();
-    } catch {
-      setError("We couldn't sign you in with those details.");
+    } catch (loginError) {
+      setError(loginError.message || "We couldn't sign you in with those details.");
     } finally {
       setLoading(false);
     }
@@ -33,7 +30,7 @@ const LoginModal = ({ open, onClose }) => {
       <div className="auth-heading">
         <p className="eyebrow">Welcome back</p>
         <h2>Continue your journey</h2>
-        <p>Log in to access your saved games and favorites.</p>
+        <p>Log in to the player profile saved on this device.</p>
       </div>
 
       <form onSubmit={handleLogin} className="auth-form">

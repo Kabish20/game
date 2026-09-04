@@ -1,12 +1,11 @@
 import { useState } from "react";
 import AuthContext from "./AuthContextValue";
+import { clearLocalSession, getLocalSession } from "../services/localAuth";
 
 const AuthProvider = ({ children }) => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
-  const [user, setUser] = useState(() => (
-    localStorage.getItem("access") ? { authenticated: true } : null
-  ));
+  const [user, setUser] = useState(getLocalSession);
 
   const login = (userData) => {
     setUser(userData);
@@ -14,8 +13,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
+    clearLocalSession();
     setUser(null);
   };
 

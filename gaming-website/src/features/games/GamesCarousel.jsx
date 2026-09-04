@@ -20,14 +20,16 @@ const GamesCarousel = ({ games, favorites, onToggleFavorite }) => {
                 520: { slidesPerView: 2.15 },
                 768: { slidesPerView: 3.15 },
                 1100: { slidesPerView: 4.2 },
-                1440: { slidesPerView: 5.15 },
+                1440: { slidesPerView: 4.65 },
             }}
             className="games-carousel"
         >
-            {games.map((game) => (
+            {games.map((game, index) => (
                 <SwiperSlide key={game.id}>
                     <GameCard
                       {...game}
+                      rank={index + 1}
+                      sequence={index}
                       isFavorite={favorites.has(game.id)}
                       onToggleFavorite={onToggleFavorite}
                     />

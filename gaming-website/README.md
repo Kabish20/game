@@ -1,6 +1,6 @@
-# Game & Glory web app
+# Game & Glory
 
-The React/Vite frontend for Game & Glory. It provides the responsive discovery experience, game search and filters, favorites, featured carousel, and authentication UI.
+The standalone React/Vite frontend for Game & Glory. It delivers a cinematic, responsive discovery experience with an animated hero, ranked game carousel, searchable library, persistent favorites, and browser-local player profiles.
 
 ## Commands
 
@@ -11,6 +11,4 @@ npm run lint
 npm run build
 ```
 
-Set `VITE_API_BASE_URL` in a local `.env` file to point at a non-default API. Local development defaults to `http://localhost:8000/api`.
-
-See the repository-level `README.md` for the complete Django + React setup.
+No backend, database, API configuration, or environment variables are required. Profiles and favorites are stored only in the current browser for demo purposes. Motion automatically reduces when the visitor enables the operating-system reduced-motion preference.

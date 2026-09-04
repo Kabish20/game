@@ -2,18 +2,10 @@ import { useState } from "react";
 import Modal from "../../components/common/Modal";
 import Button from "../../components/common/Button";
 import { CheckIcon } from "../../components/common/Icons";
-import api from "../../services/api";
-import { ENDPOINTS } from "../../services/endpoints";
+import { registerLocalAccount } from "../../services/localAuth";
 import { useAuth } from "../../context/useAuth";
 
 const EMPTY_FORM = { username: "", email: "", password: "", confirmPassword: "" };
-
-const getApiError = (error) => {
-  const responseData = error.response?.data;
-  if (!responseData) return "Registration failed. Please try again.";
-  const firstError = Object.values(responseData).flat()[0];
-  return firstError || responseData.message || "Registration failed. Please try again.";
-};
 
 const RegisterModal = ({ open, onClose }) => {
   const { openLogin } = useAuth();
@@ -51,14 +43,14 @@ const RegisterModal = ({ open, onClose }) => {
 
     setLoading(true);
     try {
-      await api.post(ENDPOINTS.REGISTER, {
+      await registerLocalAccount({
         username: formData.username,
         email: formData.email,
         password: formData.password,
       });
       setSuccess(true);
-    } catch (requestError) {
-      setError(getApiError(requestError));
+    } catch (registrationError) {
+      setError(registrationError.message || "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -71,7 +63,7 @@ const RegisterModal = ({ open, onClose }) => {
           <span><CheckIcon size={28} /></span>
           <p className="eyebrow">You're all set</p>
           <h2>Welcome to Game &amp; Glory</h2>
-          <p>Your account is ready. Log in to start building your library.</p>
+          <p>Your local account is ready. Log in to start building your library.</p>
           <Button onClick={continueToLogin} className="w-full">Continue to login</Button>
         </div>
       </Modal>
@@ -83,7 +75,7 @@ const RegisterModal = ({ open, onClose }) => {
       <div className="auth-heading">
         <p className="eyebrow">Join the community</p>
         <h2>Build your game library</h2>
-        <p>Create a free account in less than a minute.</p>
+        <p>Create a private profile stored only in this browser.</p>
       </div>
 
       <form onSubmit={handleRegister} className="auth-form">

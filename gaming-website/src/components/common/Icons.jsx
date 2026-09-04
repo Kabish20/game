@@ -69,3 +69,22 @@ export const UserIcon = (props) => (
   <Icon {...props}><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></Icon>
 );
 
+export const BoltIcon = (props) => (
+  <Icon {...props}><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z" /></Icon>
+);
+
+export const CompassIcon = (props) => (
+  <Icon {...props}><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" /></Icon>
+);
+
+export const TrophyIcon = (props) => (
+  <Icon {...props}><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z" /><path d="M7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4" /></Icon>
+);
+
+export const SparkIcon = (props) => (
+  <Icon {...props}><path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z" /><path d="m19 15 .7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z" /></Icon>
+);
+
+export const LayersIcon = (props) => (
+  <Icon {...props}><path d="m12 2 9 5-9 5-9-5 9-5Z" /><path d="m3 12 9 5 9-5M3 17l9 5 9-5" /></Icon>
+);
