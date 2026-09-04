@@ -1,20 +1,35 @@
-const Modal = ({ open, onClose, children }) => {
+import { useEffect, useRef } from "react";
+import { CloseIcon } from "./Icons";
+
+const Modal = ({ open, onClose, children, label = "Dialog" }) => {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialogRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open, onClose]);
+
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-      <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"
-        onClick={onClose}
-      />
-      <div className="relative bg-[#0f172a] border border-white/10 rounded-2xl p-8 w-full max-w-md shadow-2xl shadow-red-600/10 animate-in zoom-in-95 fade-in duration-300">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors"
-        >
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+    <div className="modal-layer" role="presentation">
+      <button type="button" className="modal-backdrop" onClick={onClose} aria-label="Close dialog" />
+      <div ref={dialogRef} className="modal-panel" role="dialog" aria-modal="true" aria-label={label} tabIndex={-1}>
+        <button type="button" onClick={onClose} className="modal-close" aria-label="Close dialog">
+          <CloseIcon size={20} />
         </button>
         {children}
       </div>

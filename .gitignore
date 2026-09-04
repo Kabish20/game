@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+media/
+
+gaming-website/node_modules/
+gaming-website/dist/
+gaming-website/.env.local
+
+asset-contact-sheet.jpg

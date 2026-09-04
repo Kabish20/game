@@ -1,30 +1,40 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { A11y, Navigation } from "swiper/modules";
 import "swiper/css";
 import GameCard from "../../components/cards/GameCard";
-import { GAMES_DATA } from "../../constants/games";
+import { ChevronLeftIcon, ChevronRightIcon } from "../../components/common/Icons";
 
-const GamesCarousel = () => {
+const GamesCarousel = ({ games, favorites, onToggleFavorite }) => {
     return (
+      <div className="carousel-shell">
+        <div className="carousel-controls" aria-label="Carousel controls">
+          <button type="button" className="carousel-prev" aria-label="Previous games"><ChevronLeftIcon /></button>
+          <button type="button" className="carousel-next" aria-label="Next games"><ChevronRightIcon /></button>
+        </div>
         <Swiper
-            modules={[Autoplay]}
-            spaceBetween={20}
-            slidesPerView={1}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            modules={[A11y, Navigation]}
+            navigation={{ prevEl: ".carousel-prev", nextEl: ".carousel-next" }}
+            spaceBetween={16}
+            slidesPerView={1.25}
             breakpoints={{
-                640: { slidesPerView: 2 },
-                768: { slidesPerView: 3 },
-                1024: { slidesPerView: 5 },
+                520: { slidesPerView: 2.15 },
+                768: { slidesPerView: 3.15 },
+                1100: { slidesPerView: 4.2 },
+                1440: { slidesPerView: 5.15 },
             }}
-            loop={true}
-            className="pb-10"
+            className="games-carousel"
         >
-            {GAMES_DATA.map((game) => (
+            {games.map((game) => (
                 <SwiperSlide key={game.id}>
-                    <GameCard {...game} />
+                    <GameCard
+                      {...game}
+                      isFavorite={favorites.has(game.id)}
+                      onToggleFavorite={onToggleFavorite}
+                    />
                 </SwiperSlide>
             ))}
         </Swiper>
+      </div>
     );
 };
 

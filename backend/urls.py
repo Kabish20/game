@@ -22,12 +22,14 @@ from rest_framework_simplejwt.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
+from games.views import UserRegistrationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/games/', include('games.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/users/register/', UserRegistrationView.as_view(), name='user_register'),
 ]
 
 if settings.DEBUG:

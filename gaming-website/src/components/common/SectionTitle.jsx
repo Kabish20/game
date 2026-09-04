@@ -1,10 +1,12 @@
-const SectionTitle = ({ title, subtitle }) => {
+const SectionTitle = ({ eyebrow, title, subtitle, action }) => {
   return (
-    <div className="mb-8">
-      <h2 className="text-3xl font-bold neon-text">{title}</h2>
-      {subtitle && (
-        <p className="text-gray-400 mt-1">{subtitle}</p>
-      )}
+    <div className="section-heading">
+      <div>
+        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+        <h2>{title}</h2>
+        {subtitle && <p className="section-subtitle">{subtitle}</p>}
+      </div>
+      {action && <div className="section-action">{action}</div>}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 export const NAVIGATION = [
-  "Games",
-  "News",
-  "Store",
-  "Esports",
-  "Support",
+  { label: "Discover", href: "#discover" },
+  { label: "Trending", href: "#trending" },
+  { label: "Library", href: "#library" },
+  { label: "Community", href: "#community" },
 ];
